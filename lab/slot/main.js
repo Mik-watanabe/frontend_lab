@@ -1,7 +1,21 @@
 "use strict"
 
 {
+    const IMAGES = [
+        "img/cherry.png",
+        "img/keroro.png",
+        "img/powerpuff.png",
+        "img/seven.png",
+        "img/simpson.png",
+        "img/bell.png",
+    ];
+
+
     class Panel {
+        img;
+        timeOutId;
+        stop;
+
         constructor() {
 
             // <section class="panel">
@@ -13,13 +27,13 @@
             section.classList.add("panel");
 
             this.img = document.createElement("img");
-            this.img.src = this.getRandomeImage();
+            this.img.src = this.getRandomImage();
             this.timeOutId = undefined;
 
             this.stop = document.createElement("div");
             this.stop.textContent = "STOP";
             this.stop.classList.add("stop", "inactive");
-            
+
             this.stop.addEventListener("click", () => {
                 if (this.stop.classList.contains("inactive")) return;
                 this.stop.classList.add("inactive");
@@ -42,20 +56,12 @@
             main.appendChild(section);
         }
 
-        getRandomeImage() {
-            const images = [
-                "img/cherry.png",
-                "img/keroro.png",
-                "img/powerpuff.png",
-                "img/seven.png",
-                "img/simpson.png",
-            ];
-
-            return images[Math.floor(Math.random() * images.length)];
+        getRandomImage() {
+            return IMAGES[Math.floor(Math.random() * IMAGES.length)];
         }
 
         spin() {
-            this.img.src = this.getRandomeImage();
+            this.img.src = this.getRandomImage();
             this.timeOutId = setTimeout(() => {
                 this.spin();
             }, 50);
@@ -102,9 +108,9 @@
         if (spin.classList.contains("inactive")) return;
 
         spin.classList.add("inactive");
-        panels.forEach((e) => {
-            e.activate(); //Reset panel on subsequent uses.
-            e.spin();
+        panels.forEach((panel) => {
+            panel.activate(); // Reset panel state before spinning again.
+            panel.spin();
         })
     })
 }
