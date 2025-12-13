@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+body {
+    margin: 0;
+}
+
+.container {
+    width: 400px;
+    margin: 16px auto;
+}
+
+button {
+    cursor: pointer;
+}
+
+h1 {
+    margin: 0;
+    padding-bottom: 8px;
+    font-size: 20px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 16px;
+    gap: 8px;
+}
+
+li input {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+li input:checked + span {
+    color: #aaa;
+    text-decoration: line-through;
+}
+
+form {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+form input {
+    flex: 1;
+    padding: 4px;
+}
