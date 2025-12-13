@@ -15,93 +15,35 @@
 
             <form id="log-form">
                 <input type="text" name="title" id="title" placeholder="Enter a subject you studied">
-                <input type="number" name="minites" id="minites" placeholder="Enter study minutes">
+                <input type="number" name="studyDuration" id="study-duration" step="1" min="1"
+                    placeholder="Enter study duration">
                 <button>Submit</button>
             </form>
         </div>
 
         <ul id="study-logs">
-            <li id="log-item">
-                <span class="log-title">Study English</span>
+            <li class="log-item">
+                <span class="log-title">Enter the subjects you studied</span>
                 <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
+                <span class="log-duration">40 min</span>
             </li>
-            <li id="log-item">
-                <span class="log-title">Study English</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English speaking skill</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English speaking skill</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English speaking skill</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English speaking skill</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English speaking skill</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English speaking skill</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English speaking skill</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English speaking skill</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
-            </li>
-            <li id="log-item">
-                <span class="log-title">Study English speaking skill</span>
-                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
-                <span class="log-duration">45 min</span>
+            <li class="log-item">
+                <span class="log-title">This app helps you track your study time</span>
+                <time class="log-date" datetime="2025-09-12">2025/09/10</time>
+                <span class="log-duration">50 min</span>
             </li>
         </ul>
 
         <div id="footer">
-            <p>𖤐Total: <span id="total-hours">4.5</span>hrs</p>
+            <p>𖤐Total:
+                <span class="num" id="total-hours">1</span>
+                <span class="unit">hrs</span>
+                <span class="num" id="total-min">30</span>
+                <span class="unit">min</span>
+            </p>
         </div>
     </div>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

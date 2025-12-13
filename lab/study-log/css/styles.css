@@ -103,7 +103,7 @@ h1 {
     margin: 0;
 }
 
-#log-item {
+.log-item {
     width: 100%;
     display: flex;
     align-items: center;
@@ -137,10 +137,8 @@ h1 {
     font-weight: bold;
 }
 
-#total-hours {
+#total-hours, #total-min {
     font-size: 30px;
-    margin-right: 8px;
-    margin-left: 12px;
 }
 
 /* ---------- Responsive ---------- */
