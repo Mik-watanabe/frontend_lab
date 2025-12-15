@@ -6,7 +6,6 @@
     const totalHoursEl = document.querySelector("#total-hours");
     const totalMinEl = document.querySelector("#total-min");
 
-
     let studyLogs;
 
     try {
@@ -18,14 +17,36 @@
     }
 
     const renderScreen = () => {
-        if (studyLogs.length > 0) {
-            displayStudyLogs();
-            displayTotalHours();
+        studyLogsEl.innerHTML = "";
+
+        if (studyLogs.length === 0) {
+            renderEmptyState();
+            totalHoursEl.textContent = "1";
+            totalMinEl.textContent = "30";
+            return;
         }
+
+        displayStudyLogs();
+        displayTotalHours();
+    };
+
+
+    const renderEmptyState = () => {
+        studyLogsEl.innerHTML = `
+            <li class="log-item">
+                <span class="log-title">Enter the subjects you studied</span>
+                <time class="log-date" datetime="2025-09-12">2025/09/12</time>
+                <span class="log-duration">40 min</span>
+            </li>
+            <li class="log-item">
+                <span class="log-title">This app helps you track your study time</span>
+                <time class="log-date" datetime="2025-09-12">2025/09/10</time>
+                <span class="log-duration">50 min</span>
+            </li>
+        `;
     }
 
     const displayStudyLogs = () => {
-        studyLogsEl.innerHTML = "";
         studyLogs.forEach(element => {
             renderStudyLog(element);
         });
@@ -33,7 +54,6 @@
 
     const displayTotalHours = () => {
         const { hours, min } = calcTotalStudyDuration();
-        console.log(hours, min);
         totalHoursEl.textContent = hours;
         totalMinEl.textContent = min;
     }
@@ -44,7 +64,6 @@
             return sum + Number(log.studyDuration || 0);
         }, 0);
 
-        console.log(totalMinutes, totalMinutes % 60);
         return {
             hours: Math.trunc(totalMinutes / 60),
             min: totalMinutes % 60
@@ -59,8 +78,8 @@
 
         const dateEl = document.createElement("time");
         dateEl.classList.add("log-date");
+        dateEl.dateTime = date.replaceAll("/", "-"); // "YYYY-MM-DD"
         dateEl.textContent = date;
-
 
         const durationEl = document.createElement("span");
         durationEl.classList.add("log-duration");
@@ -93,19 +112,16 @@
         //     -time .log-date
         //     -span .log-duration
         const log = {
-            id: new Date(),
+            id: Date.now(),
             title,
             date: generateDateString(),
             studyDuration: duration
         };
 
         studyLogs.unshift(log);
-        console.log(studyLogs);
-
         updateLocalStorage();
 
         renderScreen();
-
     }
 
     const updateLocalStorage = () => {
@@ -113,13 +129,13 @@
     }
 
 
-    // Register a log
+    // Add a new study log
     formEl.addEventListener("submit", (e) => {
         e.preventDefault();
 
         const title = e.target.title.value.trim();
         const duration = e.target.studyDuration.value.trim();
-        // only continue if neither is null
+        // Stop if either field is empty
         if (!title || !duration) {
             alert("Please Enter Both Subject and Study Duration");
             return;
@@ -127,10 +143,8 @@
 
         addStudyLog(title, duration);
 
-        e.target.title.value = "";
+        e.target.reset();
         e.target.title.focus();
-        e.target.studyDuration.value = "";
-
     });
 
     renderScreen();
