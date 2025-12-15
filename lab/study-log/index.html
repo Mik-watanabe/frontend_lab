@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Log</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✰Study Log✍︎ ꙳⋆</h1>
+
+            <form id="log-form">
+                <input type="text" name="title" id="title" placeholder="Enter a subject you studied">
+                <input type="number" name="studyDuration" id="study-duration" step="1" min="1"
+                    placeholder="Enter study duration">
+                <button>Submit</button>
+            </form>
+        </div>
+
+        <ul id="study-logs"></ul>
+
+        <div id="footer">
+            <p>𖤐Total:
+                <span class="num" id="total-hours">1</span>
+                <span class="unit">hrs</span>
+                <span class="num" id="total-min">30</span>
+                <span class="unit">min</span>
+            </p>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

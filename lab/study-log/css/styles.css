@@ -1,0 +1,174 @@
+@charset "utf-8";
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+:root {
+    --base-padding: 20px 32px;
+    --mobile-padding: 16px 12px;
+    --base-border: 2px solid rgba(0, 0, 0, 0.3);
+    --light-gray: rgba(0, 0, 0, 0.08);
+}
+
+body {
+    margin: 0;
+    background-image:
+        linear-gradient(#cacaca 1px, transparent 1px),
+        linear-gradient(to right, #cacaca 1px, transparent 1px);
+    background-size: 20px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    width: 800px;
+    min-width: 300px;
+    height: calc(100vh - 32px);
+    margin: 16px auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+/* ---------- Header ---------- */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: var(--base-padding);
+    border-bottom: var(--base-border);
+}
+
+h1 {
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* ---------- Form ---------- */
+
+#log-form {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#log-form input {
+    padding: 8px 12px;
+    border: 1.5px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+}
+
+/* Button – ノートに馴染む白ボタン */
+
+#log-form button {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(0, 0, 0, 0.2);
+    background: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+#log-form button:hover {
+    background: var(--light-gray);
+}
+
+#log-form button:active {
+    background: rgba(0, 0, 0, 0.1);
+    transform: translateY(1px);
+}
+
+/* ---------- Study Logs ---------- */
+
+#study-logs {
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+    padding: var(--base-padding);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 0;
+}
+
+.log-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 12px;
+    background: var(--light-gray);
+    border-radius: 6px;
+}
+
+.log-title {
+    flex: 1;
+}
+
+.log-date {
+    font-size: 12px;
+}
+
+/* ---------- Footer ---------- */
+
+#footer {
+    padding: var(--base-padding);
+    border-top: var(--base-border);
+    display: flex;
+    justify-content: flex-end;
+}
+
+#footer p {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#total-hours, #total-min {
+    font-size: 30px;
+}
+
+/* ---------- Responsive ---------- */
+
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--mobile-padding);
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    #log-form {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    #log-form input {
+        width: 100%;
+    }
+
+    #study-logs {
+        padding: var(--mobile-padding);
+    }
+
+    #footer {
+        padding: var(--mobile-padding);
+    }
+}
