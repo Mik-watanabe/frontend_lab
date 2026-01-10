@@ -46,6 +46,8 @@ body {
 form {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 form p {
@@ -54,17 +56,8 @@ form p {
   word-break: break-word;
 }
 
-.input_wrapper {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-}
 
-.input_wrapper label {
-  margin-right: 8px;
-}
-
-input {
+/* input {
   padding: 8px 12px;
   border: 1.5px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
@@ -72,32 +65,11 @@ input {
   font-size: 14px;
 }
 
-form input:focus,
-form button:focus-visible {
+form input:focus {
   border-color: rgba(120, 170, 220, 0.85);
   box-shadow: 0 0 0 3px rgba(120, 170, 220, 0.25);
   outline: none;
-}
-
-form button {
-  padding: 8px 18px;
-  border-radius: 20px;
-  border: 1.5px solid rgba(0, 0, 0, 0.2);
-  background: #ffffff;
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.15s ease;
-}
-
-form button:hover {
-  background: var(--light-gray);
-  border: 1.5px solid rgba(0, 0, 0, 0.2);
-}
-
-form button:active {
-  background: rgba(0, 0, 0, 0.1);
-  transform: translateY(1px);
-}
+} */
 
 .display_study_logs {
   display: flex;
@@ -116,19 +88,6 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.study_logs li {
-  width: 100%;
-  max-width: 400px;
-}
-
-
-.study_logs li div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
 }
 
 @media (max-width: 768px) {
