@@ -1,0 +1,11 @@
+.input_wrapper {
+  display: grid;
+  grid-template-columns: fit-content(100%) 1fr;
+  grid-gap: 8px;
+  margin-bottom: 8px;
+  width: 100%;
+
+  .label {
+    margin-right: 8px;
+  }
+}

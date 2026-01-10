@@ -1,34 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./StudyLog.css";
+import supabase from "../utils/supabase";
+import Loading from "./components/Loading";
+import Button from "./components/atoms/Button";
+import InputLabel from "./components/molecules/InputLabel";
+import StudyLogItem from "./components/molecules/StudyLogItem";
 
 type StudyRecord = {
+  id?: number;
   title: string;
   hours: number;
 };
 
 function StudyLog() {
-  const initialRecords: StudyRecord[] = [
-    { title: "勉強の記録1", hours: 1 },
-    { title: "勉強の記録2", hours: 3 },
-    { title: "勉強の記録3", hours: 5 },
-  ];
-
-  const [records, setRecords] = useState<StudyRecord[]>(initialRecords);
+  const [records, setRecords] = useState<StudyRecord[]>([]);
   const [studyTitle, setStudyTitle] = useState("");
   const [studyHours, setStudyHours] = useState(0);
   const [showFormError, setShowFormError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      const { data: studyLogs, error } = await supabase
+        .from("study-logs")
+        .select("*");
+
+      if (error) throw error;
+      setRecords(studyLogs);
+      setLoading(false);
+    }
+
+    fetchData();
+  }, [refreshKey]);
 
   const totalHours = records.reduce((sum, record) => sum + record.hours, 0);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStudyTitle(e.target.value);
-  }
+  };
 
   const handleHoursChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStudyHours(Number(e.target.value));
-  }
+  };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!studyTitle || studyHours < 1) {
@@ -43,10 +60,27 @@ function StudyLog() {
       hours: studyHours,
     };
 
-    setRecords((prev) => [...prev, newRecord]);
+    const { error } = await supabase.from("study-logs").insert(newRecord);
 
-    setStudyTitle("");
-    setStudyHours(0);
+    if (!error) {
+      setRefreshKey(refreshKey + 1);
+      setStudyTitle("");
+      setStudyHours(0);
+    }
+  };
+
+  const handleDeleteItem = async (id: number) => {
+    console.log(id);
+    const res = confirm("are you sure to delete the item?");
+
+    if (!res) return;
+    const response = await supabase.from("study-logs").delete().eq("id", id);
+    
+    console.log(response.error);
+    
+    if (!response.error) {
+      setRefreshKey(refreshKey + 1);
+    }
   };
 
   return (
@@ -54,52 +88,54 @@ function StudyLog() {
       <div className="main">
         <div className="register_area">
           <form action="submit" onSubmit={handleSubmit}>
-            <div className="input_wrapper">
-              <label htmlFor="studyTitle">Study Topic：</label>
-              <input
-                type="text"
-                id="studyTitle"
-                name="studyTitle"
-                placeholder="Enter What you studied"
-                value={studyTitle}
-                onChange={handleTitleChange}
-              />
-            </div>
+            <InputLabel
+              label="Study Topic："
+              name="studyTitle"
+              id="studyTitle"
+              placeholder="Enter What you studied"
+              onChange={handleTitleChange}
+              value={studyTitle}
+            />
 
-            <div className="input_wrapper">
-              <label htmlFor="studyHours">Study Time(hours)：</label>
-              <input
-                type="number"
-                id="studyHours"
-                name="studyHours"
-                min={1}
-                placeholder="0"
-                onChange={handleHoursChange}
-                value={studyHours}
-              />
-            </div>
+            <InputLabel
+              label="Study Time(hours)："
+              name="studyHours"
+              id="studyHours"
+              type="number"
+              min={1}
+              placeholder="0"
+              onChange={handleHoursChange}
+              value={studyHours}
+            />
 
             <p>Current topic：{studyTitle}</p>
             <p>Current hours： {studyHours} 時間</p>
 
-            <button type="submit">Add</button>
+            <Button label="Add" type="submit" />
             {showFormError && <p>Please fill in all required fields.</p>}
           </form>
         </div>
         <div className="display_study_logs">
           <h1>✰Study Log✍︎ ꙳⋆</h1>
-          <p>合計時間：　{totalHours} / 1000 (H)</p>
+          {loading ? (
+            <Loading />
+          ) : (
+            <>
+              <p>合計時間：　{totalHours} / 1000 (H)</p>
 
-          <ul className="study_logs">
-            {records.map((log, i) => (
-              <li key={i}>
-                <div>
-                  <p>{log.title} ：</p>
-                  <p>{log.hours} (H)</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+              <ul className="study_logs">
+                {records.map(({ id, title, hours }) => (
+                  <StudyLogItem
+                    key={id}
+                    id={id}
+                    title={title}
+                    hours={hours}
+                    deleteItem={handleDeleteItem}
+                  />
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       </div>
     </>
