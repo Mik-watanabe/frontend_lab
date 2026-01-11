@@ -1,4 +1,10 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  within,
+  fireEvent,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import StudyLog from "./StudyLog";
 import { vi, test, expect, beforeEach } from "vitest";
@@ -120,13 +126,13 @@ test("removes the item after the user confirms the delete action", async () => {
 });
 
 test("show an error message when the form is submitted without input", async () => {
-  const user = userEvent.setup();
-  render(<StudyLog />);
-  await waitFor(() => {
-    expect(selectMock).toHaveBeenCalled();
-  });
+  await setup();
 
-  await user.click(screen.getByRole("button", { name: "Add" }));
+  const form = document.querySelector("form");
+  if (!form) throw new Error("form not found");
+
+  fireEvent.submit(form);
+
   expect(
     await screen.findByText("Please fill in all required fields.")
   ).toBeInTheDocument();
