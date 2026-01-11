@@ -1,4 +1,4 @@
-yname: Deploy study_log (Firebase Hosting)
+name: Deploy study_log (Firebase Hosting)
 
 on:
   push:
