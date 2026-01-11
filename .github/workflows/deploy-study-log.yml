@@ -1,4 +1,4 @@
-name: Deploy study_log (Firebase Hosting)
+yname: Deploy study_log (Firebase Hosting)
 
 on:
   push:
@@ -23,6 +23,10 @@ jobs:
       - name: Install
         working-directory: lab/study_log_react
         run: npm ci
+
+      - name: Test
+        working-directory: lab/study_log
+        run: npm run test:run
 
       - name: Build
         working-directory: lab/study_log_react
